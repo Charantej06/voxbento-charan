@@ -182,6 +182,10 @@ function initLogin() {
     successContainer.classList.add('hidden');
     waitingContainer?.classList.add('hidden');
 
+    if (forgotPasswordLink) {
+      forgotPasswordLink.disabled = true;
+    }
+
     try {
       const nextInput = document.getElementById('next_url');
       const res = await fetch('/api/auth/forgot-password', {
@@ -197,6 +201,10 @@ function initLogin() {
       }
     } catch {
       showError('Failed to connect to server');
+    } finally {
+      if (forgotPasswordLink) {
+        forgotPasswordLink.disabled = false;
+      }
     }
   });
 }
